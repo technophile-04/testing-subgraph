@@ -152,11 +152,11 @@ yarn local-ship
 
 > This command does the following all in one… 🚀🚀🚀
 
--   Copies the contracts ABI from the hardhat/deployments folder
--   Generates the networks.json file
--   Generates AssemblyScript types from the subgraph schema and the contract ABIs.
--   Compiles and checks the mapping functions.
--   … and deploy a local subgraph!
+- Copies the contracts ABI from the hardhat/deployments folder
+- Generates the networks.json file
+- Generates AssemblyScript types from the subgraph schema and the contract ABIs.
+- Compiles and checks the mapping functions.
+- … and deploy a local subgraph!
 
 > If you get an error ts-node you can install it with the following command
 
@@ -244,25 +244,32 @@ All 1 tests passed! 😎
 
 ## Shipping to Subgraph Studio
 
+> NOTE: This step requires [deployment of contracts](https://docs.scaffoldeth.io/deploying/deploy-smart-contracts) to your preferred network or the contracts name, abi & address are present in `packages/nextjs/contracts/externalContracts.ts`
+
 1. Generate `packages/subgraph/networks.json` from contracts present:
+
    ```sh
    yarn abi-copy
    ```
+
    The above command will update the `packages/subgraph/networks.json` file and also put the ABI files in the `packages/subgraph/abis` folder.
 
 2. Generate AssemblyScript types from the subgraph schema and the contract ABIs:
+
    ```sh
    yarn codegen
    ```
 
 3. Build the subgraph and pass the network name as an argument:
+
    ```sh
    yarn graph build --network <network-name>
    ```
+
    e.g: `yarn graph build --network sepolia` checkout [the graph supported networks and thier cli names](https://thegraph.com/docs/en/developing/supported-networks/), this command should update the `packages/subgraph/subgraph.yaml` file with the network name, contract address.
 
-
 4. Update the `packages/subgraph/subgraph.yaml` file with your contract abi file location and startBlock number (optional):
+
    ```diff
    ...
          source:
@@ -275,19 +282,23 @@ All 1 tests passed! 😎
    +         file: ./abis/sepolia_YourContract.json
    ...
    ```
-  NOTE: We have used sepolia as the network name, you can replace it with the network name you used to build the subgraph.
+
+   NOTE: We have used sepolia as the network name, you can replace it with the network name you used to build the subgraph.
 
 5. Create a new subgraph on [TheGraph Studio](https://thegraph.com/studio) and get "SUBGRAPH SLUG" and "DEPLOY KEY".
 
 6. Authenticate with the graph CLI:
+
    ```sh
    yarn graph auth --studio <DEPLOY KEY>
    ```
 
 7. Deploy the subgraph to TheGraph Studio:
+
    ```sh
    yarn graph deploy --studio <SUBGRAPH SLUG>
    ```
+
    Once deployed, the CLI should output the Subgraph endpoints. Copy the HTTP endpoint and test your queries.
 
 8. Update `packages/nextjs/components/ScaffoldEthAppWithProviders.tsx` to use the new subgraph endpoint:
@@ -387,6 +398,7 @@ yarn deploy
 ```
 
 Deploy a subgraph to TheGraph.
+
 ## Documentation
 
 Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
@@ -398,3 +410,4 @@ To know more about its features, check out our [website](https://scaffoldeth.io)
 We welcome contributions to Scaffold-ETH 2!
 
 Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+

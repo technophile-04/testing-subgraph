@@ -6,10 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: YourContract
-    network: localhost
+    network: sepolia
     source:
       abi: YourContract
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      address: "0x9c4A48Dd70a3219877a252E9a0d45Fc1Db808a1D"
+      startBlock: 5906058
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -19,7 +20,7 @@ dataSources:
         - Sender
       abis:
         - name: YourContract
-          file: ./abis/localhost_YourContract.json
+          file: ./abis/sepolia_YourContract.json
       eventHandlers:
         - event: GreetingChange(indexed address,string,bool,uint256)
           handler: handleGreetingChange

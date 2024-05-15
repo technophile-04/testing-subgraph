@@ -21,11 +21,15 @@ const GreetingsTable = () => {
 `;
 
   const GREETINGS_GQL = gql(GREETINGS_GRAPHQL);
-  const { data: greetingsData, error } = useQuery(GREETINGS_GQL, { fetchPolicy: "network-only" });
+  const { data: greetingsData, error, loading } = useQuery(GREETINGS_GQL, { fetchPolicy: "network-only" });
 
   // Subgraph maybe not yet configured
   if (error) {
     return <></>;
+  }
+
+  if (loading) {
+    return <h1 className="text-xl">Loading...</h1>;
   }
 
   return (

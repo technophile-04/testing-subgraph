@@ -45,8 +45,8 @@ export const queryClient = new QueryClient({
   },
 });
 
-const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
-const apolloClient = new ApolloClient({
+const subgraphUri = "https://api.studio.thegraph.com/query/31430/my-final-test/0.0.1";
+export const apolloClient = new ApolloClient({
   uri: subgraphUri,
   cache: new InMemoryCache(),
 });

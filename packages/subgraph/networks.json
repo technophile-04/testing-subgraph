@@ -3,5 +3,10 @@
     "YourContract": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     }
+  },
+  "sepolia": {
+    "YourContract": {
+      "address": "0x9c4A48Dd70a3219877a252E9a0d45Fc1Db808a1D"
+    }
   }
 }
