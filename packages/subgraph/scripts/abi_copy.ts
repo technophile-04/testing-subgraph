@@ -7,6 +7,12 @@ import {
   parseAndCorrectJSON,
 } from "../utils/scaffoldETHContracts";
 
+import deployedContracts from "@se-2/nextjs/contracts/deployedContracts";
+import externalContracts from "@se-2/nextjs/contracts/externalContracts";
+
+console.log("deployedContracts", deployedContracts);
+console.log("externalContracts", externalContracts);
+
 const GRAPH_DIR = "./";
 
 // Scaffold-ETH contracts files
@@ -25,7 +31,7 @@ const readConfigFile = (filePath: string): string => {
 const publishContract = (
   contractName: string,
   contractObject: ScaffoldETHGenericContract,
-  networkName: string
+  networkName: string,
 ) => {
   const graphConfigPath = `${GRAPH_DIR}/networks.json`;
   const abisDir = `${GRAPH_DIR}/abis`;
@@ -42,7 +48,7 @@ const publishContract = (
   if (!fs.existsSync(abisDir)) fs.mkdirSync(abisDir);
   fs.writeFileSync(
     `${abisDir}/${networkName}_${contractName}.json`,
-    JSON.stringify(contractObject.abi, null, 2)
+    JSON.stringify(contractObject.abi, null, 2),
   );
 };
 
@@ -52,7 +58,7 @@ async function main() {
     const externalContractsContent = readConfigFile(EXTERNAL_CONTRACTS_FILE);
 
     const deployedContractsMatch = deployedContractsContent.match(
-      /const deployedContracts = ({[^;]+}) as const;/s
+      /const deployedContracts = ({[^;]+}) as const;/s,
     );
 
     // doing global match since we have example comment in extrenalContracts.ts
@@ -84,7 +90,7 @@ async function main() {
 
     const mergedContracts = deepMergeContracts(
       deployedContracts,
-      externalContracts
+      externalContracts,
     );
 
     // networks.json file uses network names as key instead of chainIds
@@ -93,7 +99,7 @@ async function main() {
     Object.entries(transformedContracts).forEach(([networkName, contracts]) => {
       if (!contracts) {
         console.error(
-          chalk.red(`No contracts found for the network: ${networkName}`)
+          chalk.red(`No contracts found for the network: ${networkName}`),
         );
         return;
       }
@@ -101,8 +107,8 @@ async function main() {
         if (!contractObject || !contractObject.abi || !contractObject.address) {
           console.error(
             chalk.red(
-              `Contract ${contractName} does not have an ABI or address. Skipping.`
-            )
+              `Contract ${contractName} does not have an ABI or address. Skipping.`,
+            ),
           );
           return;
         }

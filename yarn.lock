@@ -2639,7 +2639,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@se-2/nextjs@workspace:packages/nextjs":
+"@se-2/nextjs@*, @se-2/nextjs@workspace:packages/nextjs":
   version: 0.0.0-use.local
   resolution: "@se-2/nextjs@workspace:packages/nextjs"
   dependencies:
@@ -2693,6 +2693,7 @@ __metadata:
   dependencies:
     "@graphprotocol/graph-cli": ~0.71.2
     "@graphprotocol/graph-ts": ~0.31.0
+    "@se-2/nextjs": "*"
     "@types/chalk": ^2.2.0
     "@types/node": ^20.11.17
     matchstick-as: ~0.6.0
